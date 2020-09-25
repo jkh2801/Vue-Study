@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue Local and Global Components</title>
+</head>
+<body>
+<div id="app1">
+	<h3>첫 번째 인스턴스 영역</h3>
+	<my-global-component></my-global-component>
+	<my-local-component></my-local-component>
+</div>
+<hr>
+<div id="app2">
+	<h3>두 번째 인스턴스 영역</h3>
+	<my-global-component></my-global-component>
+	<my-local-component></my-local-component>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+	Vue.component("my-global-component", { // 전역 컴포넌트 등록
+		template: "<div>전역 컴포넌트 입니다.</div>"
+	})
+	var cmp = { // 지역 컴포넌트 내용
+			template: "<div>지역 컴포넌트 입니다.</div>"
+	}
+	var cmp2 = { // 지역 컴포넌트 내용
+		template: "<div>지역 컴포넌트 2 입니다.</div>"
+}
+	new Vue ({
+		el: "#app1",
+		components: {
+			"my-local-component" : cmp // 지역 컴포넌트 등록
+		} 
+	})
+	new Vue ({ // 두 번재 인스턴스 
+		el: "#app2",
+		components: {
+				"my-local-component" : cmp2 // 지역 컴포넌트 등록
+			} 
+	})
+</script>
+</body>
+</html>

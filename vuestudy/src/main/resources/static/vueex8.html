@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue Props Sample : 상위 컴포넌트와 하위 컴포넌트 간의 데이터 전달</title>
+</head>
+<body>
+<div id="app">
+	<!-- message: 상위 컴포넌트의 값 "Hello Vue! passed from Parent Component" 
+		propsdata 속성 : message의 값을 등록-->
+	<child-component v-bind:propsdata="message"></child-component>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+	Vue.component('child-component', { // 전역 컴포넌트 - 하위 컴포넌트로 해석
+		props: ['propsdata'], // props 설정. 이름이 propsdata인 데이터 설정 / 상위 컴포넌트의 값을 전달받기 위한 설정
+		template: '<p>{{propsdata}}</p>'
+	})
+	new Vue ({ // 상위 텀포넌트
+		el: "#app",
+		data: {
+			message: 'Hello Vue! passed from Parent Component'
+		}
+	})
+</script>
+</body>
+</html>

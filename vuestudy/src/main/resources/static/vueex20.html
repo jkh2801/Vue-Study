@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지 파일 미리보기</title>
+</head>
+<body>
+<div id="app">
+	<input type="file" v-on:change="handleChange">
+	<div v-if="preview"><img v-bind:src="preview"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+	new Vue({
+		el : '#app',
+		data : {
+			preview: ''
+		},
+		methods : {
+			handleChange : function (event) {
+				var file = event.target.files[0] // 이벤트 소스
+				if (file && file.type.match(/^image\/(png|jpeg)$/)) { // 선택된 파일이 이미지 파일이냐?
+					this.preview = window.URL.createObjectURL(file) // 클라이언트의 이미지 파일의 url을 저장
+				}
+			}
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue Event Bus Sample : 하위컴포넌트에서 상위 컴포넌트로 데이터 전달</title>
+</head>
+<body>
+<div id="app">
+	<!-- v-on: 이벤트 발생 -->
+	<child-component></child-component>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+	var eventBus = new Vue();
+	
+	Vue.component('child-component', { // 전역 컴포넌트 - 하위 컴포넌트로 해석
+		template: '<div>하위 컴포넌트 영역입니다.<button v-on:click="showLog">show</button></div>', // 버튼 클릭하면 showLog 메서드를 호출
+		methods: {
+			showLog: function() {
+				// this.$emit : 이벤트 강제 발생
+				eventBus.$emit('triggerEventBus', 100);
+			}
+		}
+	})
+	var app = new Vue ({ // 상위 텀포넌트
+		el: "#app",
+		created: function() {
+			eventBus.$on('triggerEventBus', function(value) {
+				console.log("이벤트를 전달 받음, 전달받은 값: ",  value)
+			}) 
+		}
+	})
+</script>
+</body>
+</html>

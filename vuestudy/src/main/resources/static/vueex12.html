@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>반복 렌더링</title>
+	<style>
+		.strong {
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<ol>
+			<li v-for="item in test">{{item}}</li>
+		</ol>
+		<hr>
+		<ul>
+			<li v-for="(item, index) in list" v-bind:key="item.id" v-bind:class="{strong: item.hp > 300}">
+				ID.{{ item.id }} {{ item.name }} HP {{ item.hp }}
+				<span v-if="item.hp > 300">강하다!!</span>
+				<span v-if="item.hp < 50">빈사 상태!!</span>
+				<button v-on:click="doRemove(index)">몬스터 제거하기</button>
+				<button v-on:click="doAttack(index)">공격하기</button>
+			</li>
+		</ul>
+		<hr>
+		이름 <input v-model="name"> 
+		<button v-on:click="doAdd">몬스터 추가</button>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue({ // 상위 텀포넌트
+			el : "#app",
+			data : {
+				name : "키메라",
+				test : [ "사과", "바나나", "딸기" ],
+				list : [
+					{id: 1, name: '슬라임', hp: 100},
+					{id: 2, name: '고블린', hp: 200},
+					{id: 3, name: '드래곤', hp: 500}
+				]
+			},
+			methods : {
+				doAdd : function() {
+					var max = this.list.reduce(function(a,b) { // reduce : 배열 요소마다 함수를 호출()
+					// a: 인덱스, b : 객체
+						return a > b.id ? a : b.id
+					}, 0)
+					this.list.push({
+						id : max+1,
+						name : this.name,
+						hp: 500
+					})
+				},
+				doRemove : function(index) {
+					this.list.splice(index, 1);
+				},
+				doAttack : function(index) {
+					this.list[index].hp -= 100
+				}
+			}
+		})
+	</script>
+</body>
+</html>

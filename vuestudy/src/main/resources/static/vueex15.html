@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>외부 json 파일을 읽기</title>
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="(item, index) in list" v-bind:key="item.id" v-bind:class="{strong: item.hp > 300}">
+				ID.{{ item.id }} {{ item.name }} HP {{ item.hp }}
+			</li>
+		</ul>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script> <!-- 외부의 파일을 읽어서 내용을 가져오는 모듈 -->
+	<script type="text/javascript">
+		var app = new Vue({ // 상위 텀포넌트
+			el : "#app",
+			data : {
+				list : [] // 빈 배열 객체 생성
+			},
+			created : function() { // Vue 객체 생성 이후, 마운트 되기 이전
+				axios.get('list.json').then(function(r) { // r : 파일의 내용
+					this.list = r.data // list 객체에 저장
+					this.list.push({
+						id : 4, 
+						name: "키메라", 
+						hp: 1000
+					})
+				}.bind(this)).catch(function(e) {
+					console.error(e) // console에 오류 출력
+				})
+			}
+		})
+	</script>
+</body>
+</html>

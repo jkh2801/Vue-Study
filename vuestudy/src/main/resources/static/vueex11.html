@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue 컴포넌트 전달</title>
+</head>
+<body>
+	<div id="app">
+		<child-component v-bind:propsdata="message"></child-component>
+		<sibling-component v-bind:propsdata="anotherMessage"></sibling-component>
+	</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+	Vue.component('child-component', { // 전역 컴포넌트 - 하위 컴포넌트로 해석
+		props: ['propsdata'],
+		template: '<p>{{propsdata}}</p>'
+	})
+	Vue.component('sibling-component', { // 전역 컴포넌트 - 하위 컴포넌트로 해석
+		props: ['propsdata'],
+		template: '<p>{{propsdata}}</p>'
+	})
+	var app = new Vue ({ // 상위 텀포넌트
+		el: "#app",
+		data: {
+			message: 'Hello Vue! passed from Parent Component',
+			anotherMessage: 'Hello Vue.js! passed from Parent Component'
+		}
+	})
+</script>
+</body>
+</html>

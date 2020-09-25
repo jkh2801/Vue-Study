@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 연습</title>
+</head>
+<body>
+<div id="app">
+	<input v-model="message"><p>{{message}}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue({ // 상위 텀포넌트
+			el : "#app",
+			data : {
+				message: '초기 메시지',
+				show: true
+			}
+		})
+	</script>
+</body>
+</html>
